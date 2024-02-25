@@ -1,9 +1,9 @@
 # How to setup
 1. Create a new folder
-2. git init
-3. git clone https://github.com/konglol524/BanDekDek-Backend.git
-4. 
-
+2. git clone https://github.com/konglol524/BanDekDek-Backend.git
+3. cd .\BanDekDek-Backend\
+4. git init
+5. git checkout -b <yourBranchName>
 
 
 # Workflow
