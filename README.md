@@ -1,16 +1,16 @@
-# How to setup
+# How to setup folder
 1. Create a new folder
 2. git clone https://github.com/konglol524/BanDekDek-Backend.git
 3. cd .\BanDekDek-Backend\
 4. git init
 5. git checkout -b yourBranchName
-> npm init
-> npm install (this install all modules listed in package.json)
-> create config.env inside /config, add necessary variables
-> try npm run dev
-> might have to add ip address on mongo
 
-
+# set up node
+1. npm init
+2. npm install (this install all modules listed in package.json)
+3. create config.env inside /config, add necessary variables
+4. try npm run dev
+5. might have to add ip address on mongo
 
 # Workflow
 0. make some changes
