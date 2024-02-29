@@ -17,6 +17,16 @@ const RentalSchema = new mongoose.Schema({
     minlength: [10, "Telephone number must be exactly 10 characters long"],
     maxlength: [10, "Telephone number must be exactly 10 characters long"],
   },
+}, {
+  toJSON: {virtuals: true},
+  toObject: {virtuals: true}
+});
+
+RentalSchema.virtual('bookings', {
+  ref: 'Booking',
+  localField: '_id',
+  foreignField: 'rentalProvider',
+  justOne: false
 });
 
 module.exports = mongoose.model("Rental", RentalSchema);

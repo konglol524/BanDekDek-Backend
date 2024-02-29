@@ -1,17 +1,16 @@
-const express = require("express");
-// const {
-//   getHospitals,
-//   getHospital,
-//   createHospital,
-//   updateHospital,
-//   deleteHospital,
-// } = require("../controllers/bookings");
-// const router = express.Router();
+const express = require('express');
+const {getBookings, getBooking, addBooking, updateBooking, deleteBooking} = require('../controllers/bookings');
 
-// router.route("/").get(getHospitals).post(createHospital);
-// router
-//   .route("/:id")
-//   .get(getHospital)
-//   .put(updateHospital)
-//   .delete(deleteHospital);
-// module.exports = router;
+const router = express.Router({mergeParams: true});
+
+const {protect, authorize} = require('../middleware/auth');
+
+router.route('/')
+    .get(protect, getBookings)
+    .post(protect, authorize('admin', 'user'), addBooking);
+router.route('/:id')
+    .get(protect, getBooking)
+    .put(protect, authorize('admin', 'user'), updateBooking)
+    .delete(protect, authorize('admin', 'user'), deleteBooking);
+
+module.exports=router;
