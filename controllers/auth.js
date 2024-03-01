@@ -14,7 +14,9 @@ exports.register = async (req, res, next) => {
     //Create Token
     // const token = user.getSignedJwtToken();
     // res.status(200).json({ success: true, token });
+    console.log(user._id);
     sendTokenResponse(user, 200, res);
+
   } catch (err) {
     res.status(400).json({ success: false });
     console.log(err.stack);
@@ -58,7 +60,7 @@ const sendTokenResponse = (user, statusCode, res) => {
   res
     .status(statusCode)
     .cookie("token", token, options)
-    .json({ success: true, token });
+    .json({ success: true, token, data: user });
 };
 
 exports.getMe = async (req, res, next) => {
@@ -71,10 +73,19 @@ exports.logout = async(req, res, next) => {
       expires: new Date(Date.now()+ 10*1000),
       httpOnly: true
   });
+};
+
+exports.deleteUser = async(req, res, next) => {
+  try {
+    const user = await User.findByIdAndDelete(req.params.id);
+    if(!user){
+      return res.status(400).json({success:false, message: "Can't find user"});
+    }
+    res.status(200).json({ success: true, data: {}});
+  } catch (err){
+    res.status(400).json({success:false, message: 'error'});
+  }
+
+};
 
 
-  res.status(200).json({
-      success: true,
-      data: {}
-  });
-}

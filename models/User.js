@@ -39,8 +39,8 @@ const UserSchema = new mongoose.Schema({
   createdAt: {
     type: Date,
     default: Date.now,
-  },
-});
+  }
+}, { id : true });
 
 //!Encrypt Password using bcrypt
 UserSchema.pre("save", async function (next) {
