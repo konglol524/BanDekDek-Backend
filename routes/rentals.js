@@ -15,7 +15,7 @@ const router = express.Router();
 const { protect, authorize } = require("../middleware/auth");
 
 //Re-route into other resource routers
-router.use('/:rentalId/bookings/', bookingRouter);
+router.use('/:rentalId/bookings', bookingRouter);
 
 router
   .route("/")
