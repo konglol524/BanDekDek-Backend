@@ -14,8 +14,8 @@ const RentalSchema = new mongoose.Schema({
   },
   tel: {
     type: String,
-    minlength: [10, "Telephone number must be exactly 10 characters long"],
-    maxlength: [10, "Telephone number must be exactly 10 characters long"],
+    minlength: [12, "Telephone number must be exactly 12 characters long"],
+    maxlength: [12, "Telephone number must be exactly 12 characters long"],
   },
 }, {
   toJSON: {virtuals: true},
