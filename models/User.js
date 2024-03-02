@@ -2,45 +2,48 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
-const UserSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: [true, "Please add a name"],
+const UserSchema = new mongoose.Schema(
+  {
+    name: {
+      type: String,
+      required: [true, "Please add a name"],
+    },
+    telephone: {
+      type: String,
+      required: [true, "Please add your telephone number"],
+      minlength: [12, "Telephone number must be exactly 12 characters long"],
+      maxlength: [12, "Telephone number must be exactly 12 characters long"],
+      unique: true,
+    },
+    email: {
+      type: String,
+      required: [true, "Please add an email"],
+      unique: true,
+      match: [
+        /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+        "Please add a valid email",
+      ],
+    },
+    role: {
+      type: String,
+      enum: ["user", "admin"],
+      default: "user",
+    },
+    password: {
+      type: String,
+      required: [true, "Please add a password"],
+      minlength: 6,
+      select: false,
+    },
+    resetPasswordToken: String,
+    resetPasswordExpire: Date,
+    createdAt: {
+      type: Date,
+      default: Date.now,
+    },
   },
-  telephone: {
-    type: String,
-    required: [true, "Please add your telephone number"],
-    minlength: [10, "Telephone number must be exactly 10 characters long"],
-    maxlength: [10, "Telephone number must be exactly 10 characters long"],
-    unique: true,
-  },
-  email: {
-    type: String,
-    required: [true, "Please add an email"],
-    unique: true,
-    match: [
-      /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-      "Please add a valid email",
-    ],
-  },
-  role: {
-    type: String,
-    enum: ["user", "admin"],
-    default: "user",
-  },
-  password: {
-    type: String,
-    required: [true, "Please add a password"],
-    minlength: 6,
-    select: false,
-  },
-  resetPasswordToken: String,
-  resetPasswordExpire: Date,
-  createdAt: {
-    type: Date,
-    default: Date.now,
-  }
-}, { id : true });
+  { id: true }
+);
 
 //!Encrypt Password using bcrypt
 UserSchema.pre("save", async function (next) {

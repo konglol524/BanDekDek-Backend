@@ -8,7 +8,7 @@ exports.getBookings = async (req, res, next) => {
   if (req.user.role !== "admin") {
     query = Booking.find({ user: req.user.id }).populate({
       path: "rentalProvider",
-      select: "name address tel",
+      select: "name address tel cost",
     });
   } else {
     //If you are an admin, you can see all!
@@ -17,21 +17,26 @@ exports.getBookings = async (req, res, next) => {
 
       query = Booking.find({ rentalProvider: req.params.rentalId }).populate({
         path: "rentalProvider",
-        select: "name address tel",
+        select: "name address tel cost",
       });
     } else
       query = Booking.find().populate({
         path: "rentalProvider",
-        select: "name address tel",
+        select: "name address tel cost",
       });
   }
 
   try {
     const bookings = await query;
+    const totalCostofThatUser = bookings.reduce(
+      (acc, cur) => acc + cur.rentalProvider.cost,
+      0
+    );
 
     res.status(200).json({
       success: true,
       count: bookings.length,
+      totalCost: totalCostofThatUser,
       data: bookings,
     });
   } catch (err) {
