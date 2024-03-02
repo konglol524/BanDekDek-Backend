@@ -16,8 +16,8 @@ server->routerBookings ++:app.use('/bookings',bookings)
 routerBookings -> controllersBookings ++:addBooking()
 controllersBookings->modelBooking ++:create(req.body)
 modelBooking ->BookingsDatabase ++: BookingSchema
-BookingsDatabase --> modelBooking --: bookings
-controllersBookings <-- modelBooking --:bookings
+BookingsDatabase --> modelBooking --: booking
+controllersBookings <-- modelBooking --:booking
 controllersBookings->client --:response
 
 @enduml
