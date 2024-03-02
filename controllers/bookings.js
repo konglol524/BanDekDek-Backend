@@ -29,7 +29,7 @@ exports.getBookings = async (req, res, next) => {
   try {
     const bookings = await query;
     const totalCostofThatUser = bookings.reduce(
-      (acc, cur) => acc + cur.rentalProvider.cost,
+      (acc, cur) => acc + cur.rentalProvider.cost * cur.daySpend,
       0
     );
 
@@ -51,7 +51,7 @@ exports.getBooking = async (req, res, next) => {
   try {
     const booking = await Booking.findById(req.params.id).populate({
       path: "rentalProvider",
-      select: "name tel address",
+      select: "name tel address day",
     });
 
     if (!booking) {
