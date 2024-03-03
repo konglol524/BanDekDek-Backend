@@ -20,9 +20,10 @@ exports.getRentals= async (req, res, next) => {
         //Create operators ($gt, $gte, etc)
         queryStr = queryStr.replace(/\b(gt|gte|lt|lte|in)\b/g, match=>`$${match}`);
 
-        //finding resource
-        query = Rental.find(JSON.parse(queryStr)).populate('bookings');
-
+        //finding resource,
+        query = Rental.find(JSON.parse(queryStr));
+        // .populate('bookings');
+       
         //Select Fields
         if(req.query.select){
             const fields=req.query.select.split(',').join(' ');
