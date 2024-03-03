@@ -61,14 +61,5 @@ UserSchema.methods.getSignedJwtToken = function () {
 UserSchema.methods.matchPassword = async function (enteredPassword) {
   return await bcrypt.compare(enteredPassword, this.password);
 };
-//!Delete User with Cascade Booking
-UserSchema.pre("deleteOne", async function (next) {
-  try {
-    await Booking.deleteMany({ user: this._id });
-    next();
-  } catch (err) {
-    console.log(err);
-  }
-});
 
 module.exports = mongoose.model("User", UserSchema);
