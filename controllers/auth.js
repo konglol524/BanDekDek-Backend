@@ -1,4 +1,5 @@
 const User = require("../models/User");
+const Booking = require("../models/Booking");
 
 exports.register = async (req, res, next) => {
   try {
