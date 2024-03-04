@@ -1,7 +1,7 @@
 @startuml BanDekDek System Use Case Diagram
 left to right direction
 actor "User" as user 
-rectangle "BanDekDek System" as VacQSystem {
+rectangle "Rental Car Booking System" as RentalCarBookingSystem {
     usecase "Register" as register
     usecase "View\nRental Provider" as viewRental
     usecase "Manage\nBooking" as manageBooking
