@@ -1,4 +1,5 @@
 const User = require("../models/User");
+const Booking = require("../models/Booking");
 
 exports.register = async (req, res, next) => {
   try {
@@ -16,7 +17,6 @@ exports.register = async (req, res, next) => {
     // res.status(200).json({ success: true, token });
     console.log(user._id);
     sendTokenResponse(user, 200, res);
-
   } catch (err) {
     res.status(400).json({ success: false });
     console.log(err.stack);
@@ -68,29 +68,31 @@ exports.getMe = async (req, res, next) => {
   res.status(200).json({ success: true, data: user });
 };
 
-exports.logout = async(req, res, next) => {
-  res.cookie('token', 'none', {
-      expires: new Date(Date.now()+ 10*1000),
-      httpOnly: true
+exports.logout = async (req, res, next) => {
+  res.cookie("token", "none", {
+    expires: new Date(Date.now() + 10 * 1000),
+    httpOnly: true,
   });
 
   res.status(200).json({
     success: true,
-    data: {}
-  })
+    data: {},
+  });
 };
 
-exports.deleteUser = async(req, res, next) => {
+exports.deleteUser = async (req, res, next) => {
   try {
     const user = await User.findByIdAndDelete(req.params.id);
-    if(!user){
-      return res.status(400).json({success:false, message: "Can't find user"});
+    if (!user) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Can't find user" });
     }
-    res.status(200).json({ success: true, data: {}});
-  } catch (err){
-    res.status(400).json({success:false, message: 'error'});
+    //!Cascade Booking
+    await Booking.deleteMany({ user: user._id });
+
+    res.status(200).json({ success: true, data: {} });
+  } catch (err) {
+    res.status(400).json({ success: false, message: "error" });
   }
-
 };
-
-

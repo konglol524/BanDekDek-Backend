@@ -29,11 +29,11 @@ const RentalSchema = new mongoose.Schema(
   }
 );
 
-RentalSchema.virtual("bookings", {
-  ref: "Booking",
-  localField: "_id",
-  foreignField: "rentalProvider",
-  justOne: false,
-});
+// RentalSchema.virtual("bookings", {
+//   ref: "Booking",
+//   localField: "_id",
+//   foreignField: "rentalProvider",
+//   justOne: false,
+// });
 
 module.exports = mongoose.model("Rental", RentalSchema);

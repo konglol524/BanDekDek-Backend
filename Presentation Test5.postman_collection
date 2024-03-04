@@ -7,6 +7,58 @@
 	},
 	"item": [
 		{
+			"name": "User Registration Fails with invalid email",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": "JSON Type",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\r\n    \"name\": \"{{$randomFullName}}\",\r\n    \"telephone\": \"{{$randomPhoneNumber}}\",\r\n    \"email\": \"notemail\",\r\n    \"password\": \"123456\",\r\n    \"role\" : \"user\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URL}}/api/v1/auth/register",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"auth",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "User Registration",
 			"event": [
 				{
@@ -44,7 +96,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"name\": \"KonNoob3\",\r\n    \"telephone\": \"3021111111\",\r\n    \"email\": \"kono3@gmail.com\",\r\n    \"password\": \"123456\",\r\n    \"role\" : \"user\"\r\n}",
+					"raw": "{\r\n    \"name\": \"{{$randomFullName}}\",\r\n    \"telephone\": \"{{$randomPhoneNumber}}\",\r\n    \"email\": \"{{$randomEmail}}\",\r\n    \"password\": \"123456\",\r\n    \"role\" : \"user\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -208,7 +260,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"bookingDate\" : \"2024-02-21T08:51:08.485+00:00\",\r\n    \"user\" : \"{{T_user_id}}\"\r\n}",
+					"raw": "{\r\n    \"bookingDate\" : \"2024-02-21T08:51:08.485+00:00\",\r\n    \"user\" : \"{{T_user_id}}\",\r\n    \"car\" : \"Mercedes Benz\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -216,7 +268,7 @@
 					}
 				},
 				"url": {
-					"raw": "{{URL}}/api/v1/rentals/65deed7c9363d26fdca9b715/bookings",
+					"raw": "{{URL}}/api/v1/rentals/{{rentID1}}/bookings",
 					"host": [
 						"{{URL}}"
 					],
@@ -224,7 +276,7 @@
 						"api",
 						"v1",
 						"rentals",
-						"65deed7c9363d26fdca9b715",
+						"{{rentID1}}",
 						"bookings"
 					]
 				}
@@ -281,7 +333,7 @@
 					}
 				},
 				"url": {
-					"raw": "{{URL}}/api/v1/rentals/65deed7c9363d26fdca9b715/bookings",
+					"raw": "{{URL}}/api/v1/rentals/{{rentID1}}/bookings",
 					"host": [
 						"{{URL}}"
 					],
@@ -289,7 +341,7 @@
 						"api",
 						"v1",
 						"rentals",
-						"65deed7c9363d26fdca9b715",
+						"{{rentID1}}",
 						"bookings"
 					]
 				}
@@ -338,7 +390,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"bookingDate\" : \"2023-02-21T08:51:08.485+00:00\",\r\n    \"user\" : \"{{T_user_id}}\"\r\n}",
+					"raw": "{\r\n    \"bookingDate\" : \"2023-02-21T08:51:08.485+00:00\",\r\n    \"user\" : \"{{T_user_id}}\",\r\n    \"car\" : \"Nissan \"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -346,7 +398,7 @@
 					}
 				},
 				"url": {
-					"raw": "{{URL}}/api/v1/rentals/65deed7c9363d26fdca9b715/bookings",
+					"raw": "{{URL}}/api/v1/rentals/{{rentID1}}/bookings",
 					"host": [
 						"{{URL}}"
 					],
@@ -354,7 +406,7 @@
 						"api",
 						"v1",
 						"rentals",
-						"65deed7c9363d26fdca9b715",
+						"{{rentID1}}",
 						"bookings"
 					]
 				}
@@ -407,7 +459,7 @@
 					}
 				},
 				"url": {
-					"raw": "{{URL}}/api/v1/rentals/65deed7c9363d26fdca9b715/bookings",
+					"raw": "{{URL}}/api/v1/rentals/{{rentID1}}/bookings",
 					"host": [
 						"{{URL}}"
 					],
@@ -415,7 +467,7 @@
 						"api",
 						"v1",
 						"rentals",
-						"65deed7c9363d26fdca9b715",
+						"{{rentID1}}",
 						"bookings"
 					]
 				}
@@ -971,6 +1023,10 @@
 			"key": "T_booking_id3",
 			"value": "",
 			"type": "string"
+		},
+		{
+			"key": "rentID1",
+			"value": "65deed7c9363d26fdca9b715"
 		}
 	]
 }
