@@ -1,4 +1,4 @@
-#Vercel: https://ban-dek-dek-backend-2wh4as3gd-konglol524s-projects.vercel.app/
+#Vercel: https://ban-dek-dek-backend.vercel.app/
 
 # How to setup folder
 1. Create a new folder
