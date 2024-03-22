@@ -1,3 +1,5 @@
+#Vercel: https://ban-dek-dek-backend-2wh4as3gd-konglol524s-projects.vercel.app/
+
 # How to setup folder
 1. Create a new folder
 2. git clone https://github.com/konglol524/BanDekDek-Backend.git
