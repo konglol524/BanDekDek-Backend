@@ -14,7 +14,8 @@ const auth = require("./routes/auth");
 const bookings = require("./routes/bookings");
 
 const app = express();
-
+const cors = require("cors");
+app.use(cors());
 //add body parser
 app.use(express.json());
 app.use("/api/v1/rentals", rentals);
@@ -30,7 +31,7 @@ const server = app.listen(
   console.log(
     "Server running in ",
     process.env.NODE_ENV,
-    "on " + process.env.HOST + ":" + PORT,
+    "on " + process.env.HOST + ":" + PORT
   )
 );
 
