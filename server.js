@@ -30,7 +30,15 @@ const limiter = rateLimit({
 
 const app = express();
 const cors = require("cors");
-app.use(cors({ origin: [process.env.HOST, "http://localhost:3000"] }));
+app.use(
+  cors({
+    origin: [
+      process.env.HOST,
+      "http://localhost:3000",
+      "https://ban-dek-dek-frontend.vercel.app/",
+    ],
+  })
+);
 app.use(mongoSanitize());
 //add body parser
 app.use(express.json());
