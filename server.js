@@ -35,7 +35,7 @@ app.use(
     origin: [
       process.env.HOST,
       "http://localhost:3000",
-      "https://ban-dek-dek-frontend.vercel.app/",
+      "https://ban-dek-dek-frontend.vercel.app",
     ],
   })
 );
