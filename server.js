@@ -2,11 +2,11 @@ const express = require("express");
 const dotenv = require("dotenv");
 const cookieParser = require("cookie-parser");
 const connectDB = require("./config/db");
-const mongoSanitize = require('express-mongo-sanitize');
-const helmet = require('helmet');
-const {xss} = require('express-xss-sanitizer');
-const rateLimit = require('express-rate-limit');
-const hpp=require('hpp');
+const mongoSanitize = require("express-mongo-sanitize");
+const helmet = require("helmet");
+const { xss } = require("express-xss-sanitizer");
+const rateLimit = require("express-rate-limit");
+const hpp = require("hpp");
 
 //Load env vars
 dotenv.config({ path: "./config/config.env" });
@@ -18,21 +18,19 @@ const rentals = require("./routes/rentals");
 const auth = require("./routes/auth");
 const bookings = require("./routes/bookings");
 
-
 var corsOptions = {
   origin: process.env.HOST,
-  optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
-}
+  optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
+};
 
 const limiter = rateLimit({
   windowsMs: 10 * 60 * 1000, // in 10mins, api can only be accessed up to 500 times by the same user
-  max: 500
+  max: 500,
 });
-
 
 const app = express();
 const cors = require("cors");
-app.use(cors(corsOptions));
+app.use(cors({ origin: "http://localhost:3000" }));
 app.use(mongoSanitize());
 //add body parser
 app.use(express.json());
