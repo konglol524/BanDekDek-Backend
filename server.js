@@ -30,7 +30,8 @@ const limiter = rateLimit({
 
 const app = express();
 const cors = require("cors");
-app.use(cors({ origin: process.env.FRONTEND_URL }));
+// app.use(cors({ origin: process.env.FRONTEND_URL }));
+app.use(cors());
 app.use(mongoSanitize());
 //add body parser
 app.use(express.json());
