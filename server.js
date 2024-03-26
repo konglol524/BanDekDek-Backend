@@ -32,6 +32,7 @@ const app = express();
 const cors = require("cors");
 // app.use(cors({ origin: process.env.FRONTEND_URL }));
 app.use(cors());
+app.options('*', cors())
 app.use(mongoSanitize());
 //add body parser
 app.use(express.json());
@@ -45,6 +46,7 @@ app.use(xss());
 app.use(limiter);
 //Prevent http param pollutions
 app.use(hpp());
+
 
 app.use("/api/v1/rentals", rentals);
 app.use("/api/v1/auth", auth);
